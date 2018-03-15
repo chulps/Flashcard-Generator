@@ -3,9 +3,9 @@ var ClozeFlashcard = require('./ClozeCard.js');
 var inquirer = require('inquirer');
 var fs = require('fs');
 
-
+console.log(' ');
 console.log("••••••••••••• Let's begin! •••••••••••••");
-
+console.log(' ');
 
 inquirer.prompt([{
     name: 'command',
@@ -48,7 +48,9 @@ var addCard = function() {
                 message: 'Enter a question for the front of the card?',
                 validate: function(input) {
                     if (input === '') {
+                        console.log(' ');
                         console.log('... provide a question.');
+                        console.log(' ');
                         return false;
                     } else {
                         return true;
@@ -59,7 +61,9 @@ var addCard = function() {
                 message: 'Enter the answer?',
                 validate: function(input) {
                     if (input === '') {
+                        console.log(' ');
                         console.log('... provide an answer.');
+                        console.log(' ');
                         return false;
                     } else {
                         return true;
@@ -76,7 +80,9 @@ var addCard = function() {
                 message: 'What is the full text?',
                 validate: function(input) {
                     if (input === '') {
-                        console.log('Please provide the full text');
+                        console.log(' ');
+                        console.log('••••••• Please provide the full text •••••••');
+                        console.log(' ');
                         return false;
                     } else {
                         return true;
@@ -87,7 +93,9 @@ var addCard = function() {
                 message: 'What is the cloze portion?',
                 validate: function(input) {
                     if (input === '') {
+                        console.log(' ');
                         console.log('Please provide the cloze portion');
+                        console.log(' ');
                         return false;
                     } else {
                         return true;
@@ -101,7 +109,9 @@ var addCard = function() {
                     newCloze.create();
                     whatsNext();
                 } else {
-                    console.log('The cloze portion you provided is not found in the full text. Please try again.');
+                    console.log(' ');
+                    console.log('••••••••• The cloze portion you provided is not found in the full text. Please try again. •••••••••');
+                    console.log(' ');
                     addCard();
                 }
             });
@@ -138,7 +148,9 @@ var showCards = function() {
     fs.readFile('./log.txt', 'utf8', function(error, data) {
 
         if (error) {
-            console.log('•••••••••• Error occurred: ' + error '••••••••••');
+            console.log(' ');
+            console.log('•••••••••• Error occurred: ' + error + '••••••••••');
+            console.log(' ');
         }
         var questions = data.split(';');
         var notBlank = function(value) {
@@ -146,7 +158,7 @@ var showCards = function() {
         };
         questions = questions.filter(notBlank);
         var count = 0;
-        showQuestion(questions, count);
+        showQuestion(questions, count);  
     });
 };
 
@@ -167,14 +179,22 @@ var showQuestion = function(array, index) {
         message: questionText
     }]).then(function(answer) {
         if (answer.response === correctReponse) {
+            console.log(' ');
             console.log('•••••••••• Correct! ••••••••••');
+            console.log(' ');
             if (index < array.length - 1) {
               showQuestion(array, index + 1);
+            } else {
+                whatsNext();
             }
         } else {
-            console.log('•••••••••• Wrong! Be sure to use correct capitalization, spelling, grammar, etc. ••••••••••');
+            console.log(' ');
+            console.log('•••••••••• Incorrect ••••••••••');
+            console.log(' ');
             if (index < array.length - 1) {
               showQuestion(array, index + 1);
+            } else {
+                whatsNext();
             }
         }
     });
