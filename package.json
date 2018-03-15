@@ -1,0 +1,23 @@
+{
+  "name": "flashcard-generator",
+  "version": "1.0.0",
+  "description": "Homework 11",
+  "main": "Flash-Card.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chulps/Flashcard-Generator.git"
+  },
+  "author": "tcbtran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chulps/Flashcard-Generator/issues"
+  },
+  "homepage": "https://github.com/chulps/Flashcard-Generator#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "inquirer": "^3.0.6"
+  }
+}
