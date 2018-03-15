@@ -1,13 +1,11 @@
-
 var BasicFlashcard = require('./BasicCard.js');
 var ClozeFlashcard = require('./ClozeCard.js');
 var inquirer = require('inquirer');
 var fs = require('fs');
 
-console.log(" ");
+
 console.log("••••••••••••• Let's begin! •••••••••••••");
-console.log("Remember to use proper spelling, capitalization and grammar.");
-console.log(" ");
+
 
 inquirer.prompt([{
     name: 'command',
@@ -22,10 +20,7 @@ inquirer.prompt([{
     },]
 }]).then(function(answer) {
     if (answer.command === 'Clear all flashcards?') {
-        fs.truncate('./log.txt', 0, function(){
-            });
-            console.log('All flashcards cleared.');
-            whatsNext();  
+        clearCards();
     }
     if (answer.command === 'Add a flashcard?') {
         addCard();
@@ -143,7 +138,7 @@ var showCards = function() {
     fs.readFile('./log.txt', 'utf8', function(error, data) {
 
         if (error) {
-            console.log('Error occurred: ' + error);
+            console.log('•••••••••• Error occurred: ' + error '••••••••••');
         }
         var questions = data.split(';');
         var notBlank = function(value) {
@@ -172,15 +167,24 @@ var showQuestion = function(array, index) {
         message: questionText
     }]).then(function(answer) {
         if (answer.response === correctReponse) {
-            console.log('Correct!');
+            console.log('•••••••••• Correct! ••••••••••');
             if (index < array.length - 1) {
               showQuestion(array, index + 1);
             }
         } else {
-            console.log('Wrong! Be sure to use correct capitalization, spelling, grammar, etc.');
+            console.log('•••••••••• Wrong! Be sure to use correct capitalization, spelling, grammar, etc. ••••••••••');
             if (index < array.length - 1) {
               showQuestion(array, index + 1);
             }
         }
     });
 };
+
+var clearCards = function (){
+    fs.truncate('./log.txt', 0, function(){
+    });
+    console.log(' ');
+    console.log('•••••••••• All flashcards cleared. ••••••••••');
+    console.log(' ');
+    whatsNext(); 
+}
